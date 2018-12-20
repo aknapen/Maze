@@ -1,0 +1,2 @@
+# Maze
+Project creating mazes
