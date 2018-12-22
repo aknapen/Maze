@@ -26,21 +26,10 @@ class Cell:
     
     # Function to set the adjacency list of cell
     def set_adjacent_cells(self):
-        if self.x > 0:
-            coord = (self.x-1, self.y)
-            self.adjacent_cells["West"] = coord
-        
-        if self.y > 0:
-            coord = (self.x, self.y-1)
-            self.adjacent_cells["North"] = coord
-            
-        if self.x < self.maze_width:
-            coord = (self.x+1, self.y)
-            self.adjacent_cells["East"] = coord
-        
-        if self.y < self.maze_height:
-            coord = (self.x, self.y+1)
-            self.adjacent_cells["South"] = coord
+            self.adjacent_cells["West"] = (self.x-1, self.y)
+            self.adjacent_cells["North"] = (self.x, self.y-1)
+            self.adjacent_cells["East"] = (self.x+1, self.y)
+            self.adjacent_cells["South"] = (self.x, self.y+1)
     
     def get_adjacent_cells(self):
         return [self.adjacent_cells["North"], 
