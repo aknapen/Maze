@@ -14,6 +14,8 @@ class Cell:
         
         self.adjacent_cells = {} # Dictionary of 3 or 4 adjacent cells
         self.set_adjacent_cells()
+        
+        self.is_interior = True
 
     
     # Function to return state of cell (i.e. whether the cell is a wall or a path
@@ -26,16 +28,38 @@ class Cell:
     
     # Function to set the adjacency list of cell
     def set_adjacent_cells(self):
-            self.adjacent_cells["West"] = (self.x-1, self.y)
-            self.adjacent_cells["North"] = (self.x, self.y-1)
-            self.adjacent_cells["East"] = (self.x+1, self.y)
-            self.adjacent_cells["South"] = (self.x, self.y+1)
+            if self.y - 1 < 0:
+                self.adjacent_cells["North"] = None
+                self.is_interior = False
+            else:
+                self.adjacent_cells["North"] = (self.x, self.y-1)
+            if self.x + 1 == self.maze_width:
+                self.adjacent_cells['East'] = None
+                self.is_interior = False
+            else:   
+                self.adjacent_cells["East"] = (self.x+1, self.y)
+            if self.y + 1 == self.maze_height:
+                self.adjacent_cells['South'] = None
+                self.is_interior = False
+            else:  
+                self.adjacent_cells["South"] = (self.x, self.y+1)
+            if self.x - 1 < 0:
+                self.adjacent_cells['West'] = None
+                self.is_interior = False
+            else: 
+                self.adjacent_cells["West"] = (self.x-1, self.y)
     
     def get_adjacent_cells(self):
         return [self.adjacent_cells["North"], 
-                self.adjacent_cells["South"], 
                 self.adjacent_cells["East"], 
+                self.adjacent_cells["South"], 
                 self.adjacent_cells["West"]]
+        
+    def get_adjacent_cells_with_labels(self):
+        return ["North: " + str(self.adjacent_cells["North"]), 
+                'East: ' + str(self.adjacent_cells["East"]), 
+                'South: ' + str(self.adjacent_cells["South"]), 
+               'West: ' + str(self.adjacent_cells["West"])]
     
 
 cell1 = Cell(2, 3, 40, 40)
